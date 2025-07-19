@@ -1,6 +1,6 @@
 package AbstractData;
 
-import org.openqa.selenium.By;
+import PageObjects.OrderPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -17,6 +17,14 @@ public class AbstarctData
     public AbstarctData(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
+    }
+    @FindBy(css = "button[routerlink*='myorders']")
+    WebElement ordersButton;
+    public OrderPage clickonOrders()
+    {
+        ordersButton.click();
+        OrderPage orderpage=new OrderPage(driver);
+        return orderpage;
     }
 
     @FindBy(css = "[routerlink*='cart']")

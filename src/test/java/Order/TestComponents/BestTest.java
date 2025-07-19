@@ -15,7 +15,7 @@ import java.util.Properties;
 
 public class BestTest
 {
-    public WebDriver driver;
+    public static WebDriver driver;
     public static LandingPage landingPage;
     public WebDriver launchBrowser() throws IOException {
         Properties prop=new Properties();

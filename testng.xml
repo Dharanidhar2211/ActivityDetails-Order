@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd"><suite name="All Test Suite"><test verbose="2" preserve-order="true" name="C:/Users/DHARANIDHAR/eclipse-workspace/ActivityDetails-Order"><classes><class name="Order.Test.ErrorValidationTest"><methods><include name="LoginErrorTest"/><include name="OrderErrorTest"/></methods></class><class name="Order.Test.SubmitOrderTest"><methods><include name="submitOrdertest"/><include name="OrderItemTest"/></methods></class></classes></test></suite>

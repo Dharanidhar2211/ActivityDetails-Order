@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="ActivityDetails-Order">
+    <test thread-count="5" name="Regression">
+        <groups>
+            <run>
+                <include name="PurchaseOrderTest"/>
+                
+            </run>
+            
+        </groups>
+        
+        
+        <classes>
+            <class name="Order.Test.ErrorValidationTest"/>
+            <class name="Order.Test.SubmitOrderTest"/>
+        </classes>
+    </test>
+</suite>

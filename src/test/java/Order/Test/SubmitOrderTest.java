@@ -1,9 +1,7 @@
 package Order.Test;
 import Order.TestComponents.BestTest;
-import PageObjects.CartPage;
-import PageObjects.LandingPage;
-import PageObjects.PaymentPage;
-import PageObjects.ProductCatlogPage;
+import PageObjects.*;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -14,7 +12,7 @@ import java.time.Duration;
 import java.util.List;
 
 public class SubmitOrderTest extends BestTest {
-    @Test
+    @Test(priority = 1,groups = "PurchaseOrderTest")
     public static void submitOrdertest() throws InterruptedException
     {
         ProductCatlogPage productcatlogpage = landingPage.login("dharanidhar220@gmail.com", "Ilovecricket@123");
@@ -25,5 +23,13 @@ public class SubmitOrderTest extends BestTest {
         PaymentPage paymentPage=cartpage.clickonCheckout();
         String confirmMsg=paymentPage.selectCountry_PlaceOrder();
         Assert.assertTrue(confirmMsg.equalsIgnoreCase("Thankyou for the order."));
+    }
+    @Test(priority = 2)
+    public void OrderItemTest()
+    {
+        ProductCatlogPage productcatlogpage = landingPage.login("dharanidhar2211@gmail.com", "Ilovecricket@123");
+        OrderPage orderpage=landingPage.clickonOrders();
+        String orderName=orderpage.ValidateOrder();
+        Assert.assertEquals(orderName, "ADIDAS ORIGINAL");
     }
 }
