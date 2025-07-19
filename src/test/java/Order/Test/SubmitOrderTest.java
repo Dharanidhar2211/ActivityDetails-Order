@@ -1,5 +1,6 @@
 package Order.Test;
 import PageObjects.LandingPage;
+import PageObjects.ProductCatlogPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,37 +14,24 @@ import java.time.Duration;
 import java.util.List;
 
 public class SubmitOrderTest {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         WebDriver driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-
         LandingPage landingPage = new LandingPage(driver);
-        driver.get("https://rahulshettyacademy.com/client");
-
+        landingPage.goTO();
         landingPage.login("dharanidhar220@gmail.com", "Ilovecricket@123");
 
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector(".mb-3")));
+        ProductCatlogPage productcatlogpage = new ProductCatlogPage(driver);
+        List<WebElement> products=productcatlogpage.getProducts();
+        productcatlogpage.addProductToCart("ZARA COAT 3");
 
-        List<WebElement> products = driver.findElements(By.cssSelector(".mb-3"));
-        WebElement prod = products.stream()
-                .filter(s -> s.findElement(By.tagName("b")).getText().equals("ADIDAS ORIGINAL"))
-                .findFirst()
-                .orElse(null);
-
-
-
-        prod.findElement(By.cssSelector(".card-body button:last-of-type")).click();
-
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[text()=' Product Added To Cart ']")));
-        wait.until(ExpectedConditions.invisibilityOf(driver.findElement(By.cssSelector(".ng-animating"))));
-        driver.findElement(By.cssSelector("[routerlink*='cart']")).click();
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div h1")));
         List<WebElement> cproducts = driver.findElements(By.cssSelector(".cartSection h3"));
-        boolean match = cproducts.stream().anyMatch(s -> s.getText().equalsIgnoreCase("ADIDAS ORIGINAL"));
+        boolean match = cproducts.stream().anyMatch(s -> s.getText().equalsIgnoreCase("ZARA COAT 3"));
 
         Assert.assertTrue(match);
 

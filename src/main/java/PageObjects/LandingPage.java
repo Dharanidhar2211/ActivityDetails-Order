@@ -21,6 +21,10 @@ public class LandingPage {
 
     @FindBy(xpath = "//input[contains(@type,'submit')]")
     WebElement submitButton;
+    public void goTO()
+    {
+        driver.get("https://rahulshettyacademy.com/client");
+    }
 
     // Renamed for convention
     public void login(String email, String password) {
