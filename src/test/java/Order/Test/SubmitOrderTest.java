@@ -1,5 +1,7 @@
 package Order.Test;
+import PageObjects.CartPage;
 import PageObjects.LandingPage;
+import PageObjects.PaymentPage;
 import PageObjects.ProductCatlogPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -18,32 +20,18 @@ public class SubmitOrderTest {
         WebDriver driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         LandingPage landingPage = new LandingPage(driver);
         landingPage.goTO();
         landingPage.login("dharanidhar220@gmail.com", "Ilovecricket@123");
-
         ProductCatlogPage productcatlogpage = new ProductCatlogPage(driver);
         List<WebElement> products=productcatlogpage.getProducts();
         productcatlogpage.addProductToCart("ZARA COAT 3");
-
-
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div h1")));
-        List<WebElement> cproducts = driver.findElements(By.cssSelector(".cartSection h3"));
-        boolean match = cproducts.stream().anyMatch(s -> s.getText().equalsIgnoreCase("ZARA COAT 3"));
-
+        CartPage cartpage= new CartPage(driver);
+        boolean match= cartpage.cartProduct("ZARA COAT 3");
         Assert.assertTrue(match);
-
-        driver.findElement(By.xpath("//button[text()='Checkout']")).click();
-
-        Actions a = new Actions(driver);
-        a.sendKeys(driver.findElement(By.cssSelector("[placeholder='Select Country']")), "India").build().perform();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".ta-results")));
-        driver.findElement(By.xpath("(//button[contains(@class,'ta-item')]) [2]")).click();
-        driver.findElement(By.cssSelector(".action__submit")).click();
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector(".hero-primary"))));
-        String confirmMsg = driver.findElement(By.cssSelector(".hero-primary")).getText();
+        cartpage.clickonCheckout();
+        PaymentPage paymentPage = new PaymentPage(driver);
+        String confirmMsg=paymentPage.selectCountry_PlaceOrder();
         Assert.assertTrue(confirmMsg.equalsIgnoreCase("Thankyou for the order."));
         driver.close();
     }
