@@ -14,7 +14,7 @@ public class ErrorValidationTest extends BestTest {
     public void LoginErrorTest() {
         ProductCatlogPage productcatlogpage = landingPage.login("dharanidhar220@gmail.com", "Ilovecricket@1231");
         String ErrorText = landingPage.ErrorPopUp();
-        Assert.assertEquals(ErrorText, "Incorrect email or password.");
+        Assert.assertEquals(ErrorText, "Incorrect email or password.1");
     }
 
     @Test
