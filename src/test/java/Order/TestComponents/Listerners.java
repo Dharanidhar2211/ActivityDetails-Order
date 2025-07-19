@@ -17,26 +17,28 @@ public class Listerners extends BestTest implements ITestListener
 {
     ExtentReports extent= ExtentReportTest.ExtentReportNG();
     public ExtentTest test;
+    ThreadLocal<ExtentTest> extentTest = new ThreadLocal<ExtentTest>();
     @Override
     public void onTestStart(ITestResult result)
     {
 
         test= extent.createTest(result.getMethod().getMethodName());
+        extentTest.set(test);
 
     }
 
     @Override
     public void onTestSuccess(ITestResult result) {
 
-        test.log(Status.PASS, "Test Passed: " + result.getMethod().getMethodName());
+        extentTest.get().log(Status.PASS, "Test Passed: " + result.getMethod().getMethodName());
     }
 
 
     @Override
     public void onTestFailure(ITestResult result)
     {
-        test.log(Status.FAIL, "Test Failed: " + result.getMethod().getMethodName());
-        test.fail(result.getThrowable());
+        extentTest.get().log(Status.FAIL, "Test Failed: " + result.getMethod().getMethodName());
+        extentTest.get().fail(result.getThrowable());
         try {
             driver=(WebDriver) result.getTestClass().getRealClass().getField("driver").get(result.getInstance());
         } catch (IllegalAccessException e) {
@@ -50,7 +52,7 @@ public class Listerners extends BestTest implements ITestListener
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        test.addScreenCaptureFromPath(FilePath,result.getMethod().getMethodName());
+        extentTest.get().addScreenCaptureFromPath(FilePath,result.getMethod().getMethodName());
 
     }
     @Override

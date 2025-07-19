@@ -1,6 +1,7 @@
 package Order.Test;
 
 import Order.TestComponents.BestTest;
+import Order.TestComponents.reTry;
 import PageObjects.CartPage;
 import PageObjects.ProductCatlogPage;
 import org.openqa.selenium.WebElement;
@@ -10,7 +11,7 @@ import org.testng.annotations.Test;
 import java.util.List;
 
 public class ErrorValidationTest extends BestTest {
-    @Test
+    @Test(retryAnalyzer = reTry.class)
     public void LoginErrorTest() {
         ProductCatlogPage productcatlogpage = landingPage.login("dharanidhar220@gmail.com", "Ilovecricket@1231");
         String ErrorText = landingPage.ErrorPopUp();

@@ -55,10 +55,10 @@ public class BestTest
         return data;
 
     }
-    public String getScreenShot(String FileName,WebDriver driver) throws IOException {
+    public String getScreenShot(String TestCaseName,WebDriver driver) throws IOException {
         File srcFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-        FileUtils.copyFile(srcFile,new File(System.getProperty("user.dir")+"Reports" + FileName+".png"));
-        return System.getProperty("user.dir")+"\\Reports" + FileName+".png";
+        FileUtils.copyFile(srcFile,new File(System.getProperty("user.dir")+"//Reports//"+TestCaseName+".png"));
+        return System.getProperty("user.dir")+"//Reports//"+TestCaseName+".png";
     }
     @BeforeMethod(alwaysRun = true)
     public void initDriver() throws IOException
