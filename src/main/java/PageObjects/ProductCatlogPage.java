@@ -6,7 +6,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
@@ -46,13 +45,14 @@ public class ProductCatlogPage extends AbstarctData
         WebElement prod = getProducts().stream().filter(s -> s.findElement(By.tagName("b")).getText().equals(productName)).findFirst().orElse(null);
         return prod;
     }
-    public void addProductToCart(String productName) throws InterruptedException {
+    public CartPage addProductToCart(String productName) throws InterruptedException {
         WebElement prod=getProductByName(productName).findElement(By.cssSelector(".card-body button:last-of-type"));
         prod.click();
         VisibilityofElement(w2);
         InVisibilityofElement(w3);
         clickOnCart();
-
+        CartPage cartpage= new CartPage(driver);
+        return cartpage;
     }
 
 

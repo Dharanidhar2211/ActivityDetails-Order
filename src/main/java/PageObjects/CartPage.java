@@ -2,7 +2,6 @@ package PageObjects;
 
 import AbstractData.AbstarctData;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -37,9 +36,11 @@ public class CartPage extends AbstarctData
         boolean match = cproductsList.stream().anyMatch(s -> s.getText().equalsIgnoreCase(item));
         return match;
     }
-    public void clickonCheckout()
+    public PaymentPage clickonCheckout()
     {
         checkoutButton.click();
+        PaymentPage paymentPage = new PaymentPage(driver);
+        return paymentPage;
     }
 
 

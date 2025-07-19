@@ -1,4 +1,5 @@
 package Order.Test;
+import Order.TestComponents.BestTest;
 import PageObjects.CartPage;
 import PageObjects.LandingPage;
 import PageObjects.PaymentPage;
@@ -7,28 +8,22 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.Test;
+
 import java.time.Duration;
 import java.util.List;
 
-public class SubmitOrderTest {
-    public static void main(String[] args) throws InterruptedException {
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.manage().window().maximize();
-        LandingPage landingPage = new LandingPage(driver);
-        landingPage.goTO();
-        landingPage.login("dharanidhar220@gmail.com", "Ilovecricket@123");
-        ProductCatlogPage productcatlogpage = new ProductCatlogPage(driver);
+public class SubmitOrderTest extends BestTest {
+    @Test
+    public static void submitOrdertest() throws InterruptedException
+    {
+        ProductCatlogPage productcatlogpage = landingPage.login("dharanidhar220@gmail.com", "Ilovecricket@123");
         List<WebElement> products=productcatlogpage.getProducts();
-        productcatlogpage.addProductToCart("ZARA COAT 3");
-        CartPage cartpage= new CartPage(driver);
+        CartPage cartpage=  productcatlogpage.addProductToCart("ZARA COAT 3");
         boolean match= cartpage.cartProduct("ZARA COAT 3");
         Assert.assertTrue(match);
-        cartpage.clickonCheckout();
-        PaymentPage paymentPage = new PaymentPage(driver);
+        PaymentPage paymentPage=cartpage.clickonCheckout();
         String confirmMsg=paymentPage.selectCountry_PlaceOrder();
         Assert.assertTrue(confirmMsg.equalsIgnoreCase("Thankyou for the order."));
-        driver.close();
-        //Test
     }
 }

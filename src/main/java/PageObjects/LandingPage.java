@@ -27,9 +27,11 @@ public class LandingPage {
     }
 
     // Renamed for convention
-    public void login(String email, String password) {
+    public ProductCatlogPage login(String email, String password) {
         userEmail.sendKeys(email);
         userPassword.sendKeys(password);
         submitButton.click();
+        ProductCatlogPage productcatlogpage = new ProductCatlogPage(driver);
+        return productcatlogpage;
     }
 }
