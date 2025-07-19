@@ -1,25 +1,23 @@
 package Order.Test;
 import Order.TestComponents.BestTest;
 import PageObjects.*;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.time.Duration;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 public class SubmitOrderTest extends BestTest {
-    @Test(priority = 1,groups = "PurchaseOrderTest")
-    public static void submitOrdertest() throws InterruptedException
+    @Test(priority = 1,groups = "PurchaseOrderTest",dataProvider = "getdata")
+    public static void submitOrdertest(HashMap<String,String> input) throws InterruptedException
     {
-        ProductCatlogPage productcatlogpage = landingPage.login("dharanidhar220@gmail.com", "Ilovecricket@123");
+        ProductCatlogPage productcatlogpage = landingPage.login(input.get("email"), input.get("password"));
         List<WebElement> products=productcatlogpage.getProducts();
-        CartPage cartpage=  productcatlogpage.addProductToCart("ZARA COAT 3");
-        boolean match= cartpage.cartProduct("ZARA COAT 3");
+        CartPage cartpage=  productcatlogpage.addProductToCart(input.get("item"));
+        boolean match= cartpage.cartProduct(input.get("item"));
         Assert.assertTrue(match);
         PaymentPage paymentPage=cartpage.clickonCheckout();
         String confirmMsg=paymentPage.selectCountry_PlaceOrder();
@@ -32,6 +30,11 @@ public class SubmitOrderTest extends BestTest {
         OrderPage orderpage=landingPage.clickonOrders();
         String orderName=orderpage.ValidateOrder();
         Assert.assertEquals(orderName, "ADIDAS ORIGINAL");
+    }
+    @DataProvider
+    public Object[][] getdata() throws IOException {
+        List<HashMap<String,String>> data = getjsonData(System.getProperty("user.dir") + "\\src\\main\\java\\Order\\DataComponents\\data.json");
+        return new Object[][] { {data.get(0)}, {data.get(1)} };
     }
 
 }
