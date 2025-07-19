@@ -34,5 +34,6 @@ public class SubmitOrderTest {
         String confirmMsg=paymentPage.selectCountry_PlaceOrder();
         Assert.assertTrue(confirmMsg.equalsIgnoreCase("Thankyou for the order."));
         driver.close();
+        //Test
     }
 }
