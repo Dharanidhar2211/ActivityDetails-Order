@@ -35,7 +35,7 @@ public class SubmitOrderTest extends BestTest {
     public Object[][] getdata() throws IOException {
         List<HashMap<String,String>> data = getjsonData(System.getProperty("user.dir") + "\\src\\main\\java\\Order\\DataComponents\\data.json");
         return new Object[][] { {data.get(0)}, {data.get(1)} };
-        //Please Forword the work with jenkins 
+        //Please Forward the work with jenkins
     }
 
 }
