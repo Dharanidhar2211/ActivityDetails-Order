@@ -3,7 +3,7 @@
 <suite name="ActivityDetails-Order" >
     <test thread-count="5" name="ErrorValidation">
         <classes>
-            <class name="Order.Test.ErrorValidationTest"/>
+                <class name="Order.Test.ErrorValidationTest"/>
         </classes>
     </test>
 </suite>
