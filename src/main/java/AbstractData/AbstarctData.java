@@ -27,17 +27,18 @@ public class AbstarctData
         return orderpage;
     }
 
-    @FindBy(css = "[routerlink*='cart']")
+    @FindBy(css = "button[routerlink*='cart']")
     WebElement clickOnCart;
+
     public void VisibilityofElement(WebElement Wait1)
     {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOf(Wait1));
     }
     public void InVisibilityofElement(WebElement Wait1) throws InterruptedException {
          //WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         // wait.until(ExpectedConditions.invisibilityOf(Wait1));
-        Thread.sleep(1000);
+        Thread.sleep(3000);
     }
     public void clickOnCart() {
 
